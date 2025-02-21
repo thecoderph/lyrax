@@ -1,34 +1,36 @@
-import { HardhatUserConfig } from "hardhat/config";
+import { HardhatUserConfig } from "hardhat/types"; // Corrected import
 import "@nomicfoundation/hardhat-toolbox";
 import "@openzeppelin/hardhat-upgrades";
+import * as dotenv from "dotenv";
 
-// Ensure Solidity Analyzer is disabled if causing issues
+dotenv.config();
+
 const config: HardhatUserConfig = {
-    solidity: {
-        version: "0.8.22",
-        settings: {
-            optimizer: {
-                enabled: true,
-                runs: 200 // Adjust as needed
-            }
-        }
+  solidity: {
+    version: "0.8.22",
+    settings: {
+      optimizer: {
+        enabled: true,
+        runs: 200,
+      },
     },
-    // Optional: Disable Solidity Analyzer explicitly
-    analyzer: {
-        enabled: false // Disable the Solidity Analyzer
+  },
+  networks: {
+    hardhat: {
+      chainId: 1337,
     },
-    networks: {
-        hardhat: {
-            chainId: 1337
-        }
+    mumbai: {
+      url: process.env.ALCHEMY_MUMBAI_RPC,
+      accounts: [process.env.PRIVATE_KEY],
     },
-    paths: {
-        artifacts: "./artifacts",
-        cache: "./cache"
-    },
-    mocha: {
-        timeout: 20000
-    }
+  },
+  paths: {
+    artifacts: "./artifacts",
+    cache: "./cache",
+  },
+  mocha: {
+    timeout: 20000,
+  },
 };
 
 export default config;
