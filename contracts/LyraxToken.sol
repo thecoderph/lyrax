@@ -30,7 +30,7 @@ contract Lyrax is Initializable, ERC20Upgradeable, ERC20BurnableUpgradeable, ERC
         __ERC20Votes_init();
         __ERC20FlashMint_init();
 
-        _mint(recipient, 100 * 10 ** decimals());
+        _mint(recipient, 1000000000 * 10 ** decimals());
     }
 
     function pause() public onlyOwner {
